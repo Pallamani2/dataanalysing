@@ -1,0 +1,7 @@
+project 5: Which properties have the highest number of successful bookings for the june month?
+ query:
+ select  sum(a.successful_bookings) as total_bookings, a.property_id from fct_booking b
+join fct_agg a on a.property_id=b.property_id and a.check_in_date=b.check_in_date
+ where to_char(a.check_in_date,'dd') ='06'
+group by a.property_id 
+order by total_bookings;
