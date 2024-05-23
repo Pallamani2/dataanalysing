@@ -1,0 +1,8 @@
+project3 : How many bookings were made through each booking platform for each property?
+query: 
+select  a.property_id,count(b.booking_id)as total_bookings,b.booking_platform from fct_booking b
+    join fct_agg a
+    on 
+    b.property_id=a.property_id and a.check_in_date=b.check_in_date
+    group by a.property_id, order by b.booking_platform;
+		
