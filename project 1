@@ -1,0 +1,15 @@
+project 1: Find out which properties generate the most revenue on average per booking.
+query:
+select
+a.property_id, 
+round(avg(b.revenue_generated)) as avg_revenue 
+from
+fct_agg a 
+join
+fct_booking b 
+on a.property_id=b.property_id 
+and a.check_in_date=b.check_in_date
+group by a.property_id
+order by avg_revenue;
+
+      
