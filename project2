@@ -1,0 +1,3 @@
+project 2 : What is the total capacity and successful bookings for each room category across all properties?
+query: select a.capacity as total_capacity, a.successful_bookings,a.property_id,b.booking_id from fct_agg a join fct_booking b on
+a.property_id=b.property_id order by total_capacity;
