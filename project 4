@@ -1,0 +1,7 @@
+project 4:What is the average rating given for bookings in each room category?
+query:
+select a.room_category, avg(b.ratings_given) as avg_rating from fct_booking b 
+join fct_agg a on a.property_id=b.property_id and a.check_in_date=b.check_in_date 
+group by a.room_category
+order by a.room_category
+    ;
