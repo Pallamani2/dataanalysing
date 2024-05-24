@@ -8,7 +8,7 @@ CREATE TABLE customer_data (
 );
 --table contains details for saving account  of customer 
 CREATE TABLE savings_account(
-    savings_id number (06) PRIMARY KEY,
+    savings_id varchar(20) PRIMARY KEY,
     customer_id number,
     date_of_opening DATE,
     account_number number(05),
