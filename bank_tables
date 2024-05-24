@@ -1,0 +1,85 @@
+--table contains basic customer details 
+CREATE TABLE customer_data (
+    customer_id number PRIMARY KEY, 
+    fullname VARCHAR2(100 BYTE), 
+    age number (3), 
+    mail VARCHAR2(100 BYTE), 
+    mobile_number number (10)
+);
+--table contains details for saving account  of customer 
+CREATE TABLE savings_account(
+    savings_id number (06) PRIMARY KEY,
+    customer_id number,
+    date_of_opening DATE,
+    account_number number(05),
+    balance number (10),
+    branch VARCHAR(2),
+    debit_card_number number(16),
+    CONSTRAINT fk_customer_id
+        FOREIGN KEY (customer_id)
+        REFERENCES customer_data(customer_id)
+);
+--table contains details for loan_details  of customer 
+create table loan_details
+(
+loan_id number(7) primary key,
+customer_id number,
+date_sanctioned date,
+loan_status varchar (20),
+loan_type varchar (20),
+loan_amount_sanctioned number(7),
+disbursement_date date,
+interest_rate int,
+loan_limit number,
+constraint fk_customer_id2 foreign key (customer_id) references customer_data(customer_id),
+constraint chk_loan_type check (loan_type in ('House_loan','Business_loan','Personal_loan')),
+constraint chk_loan_limit check (loan_limit<loan_amount_sanctioned),
+constraint chk_loan_status check (loan_status in('Approved','Declined','In_progress')),
+constraint chk_interest_rate check(
+interest_rate= case 
+            when loan_type='business_loan' then 12
+             when loan_type='personal_loan' then 14
+            when loan_type='house_loan' then 12
+end)
+);
+
+--table contains details for investment details of customer
+
+create table investment_details(
+dmat_account_number number(12) primary key,
+customer_id number,
+investment_id number(20),
+date_of_investment date,
+trading_transaction_id number(30) ,
+type_of_holdings varchar (20),
+amount_holding number(06),
+broker varchar (50),
+constraint fk_customer_id3 foreign key (customer_id) references customer_data(customer_id),
+constraint chk_type_of_holdings check 
+(type_of_holdings in('shares','mutual_funds','bonds','ETFS','commodities','derivatives','corporate_securities'))
+);
+
+
+--table contains details for health insurance holder of customer
+create table health_insurance_holder(
+health_insurance_id number(13) primary key,
+customer_id number,
+type_of_insurance varchar (100),
+insurance_purchased_date date,
+premium_amount number(06),
+claim_id number(15),
+max_members_in_coverage number,
+hospital varchar(100),
+constraint fk_customer_id4 foreign key (customer_id) references customer_data(customer_id),
+constraint chk_type_of_insurance check
+(type_of_insurance in ('life_insurance','health_insurance','property_insurance','vehicle_insurance','business_insurance','travel_insurance')),
+constraint chk_max_members_in_coverage check(
+max_members_in_coverage= case type_of_insurance
+when 'life_insurance' then 1
+when 'health_insurance' then 5
+when 'property_insurance' then 20
+when 'vehicle_insurance' then 5
+when 'business_insurance' then 10
+when 'travel_insurance' then 2
+end)
+);
