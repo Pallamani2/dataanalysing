@@ -1,0 +1,7 @@
+Find the customers who have either 'life_insurance' or 'business_insurance' and have an investment amount holding of more than
+$50,000.*;
+select h.type_of_insurance,i.amount_holding,h.customer_id from HEALTH_INSURANCE_HOLDER h join
+INVESTMENT_DETAILS i on i.customer_id=h.customer_id 
+where ( h.type_of_insurance= 'life_insurance' or h.type_of_insurance= 'business_insurance')
+and i.AMOUNT_HOLDING > 50000
+order by h.customer_id ;
